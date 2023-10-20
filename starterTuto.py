@@ -12,5 +12,6 @@ index = VectorStoreIndex.from_documents(documents)
 
 
 query_engine = index.as_query_engine()
-response = query_engine.query("What did the author do growing up?")
+question=input("What do you want to ask?")
+response = query_engine.query(question)
 print(response)
