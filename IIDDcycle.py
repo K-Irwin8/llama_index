@@ -7,7 +7,7 @@ openai.api_key = api_key
 
 from llama_index import VectorStoreIndex, SimpleDirectoryReader
 
-documents = SimpleDirectoryReader('/Users/markirwin/llama_index/examples/paul_graham_essay/data_input').load_data()
+documents = SimpleDirectoryReader('/Users/markirwin/llama_index/books/data_input').load_data()
 index = VectorStoreIndex.from_documents(documents)
 
 
@@ -34,14 +34,16 @@ action_question="Based on the decisions he made, what actions did the author tak
 action_response = query_engine.query(action_question)
 
 # Synthesize
-with open("/Users/markirwin/llama_index/examples/paul_graham_essay/data_output/paul_graham_output.txt", "w") as file:
+with open("/Users/markirwin/llama_index/books/data_output/prag_output.txt", "w") as file:
     file.write(str(end_goal_response) + str(information_response) + str(issues_response) + str(decision_response) + str(action_response))
     
-documents = SimpleDirectoryReader("/Users/markirwin/llama_index/examples/paul_graham_essay/data_output").load_data()
+documents = SimpleDirectoryReader("/Users/markirwin/llama_index/books/data_output").load_data()
 index = VectorStoreIndex.from_documents(documents)
 query_engine = index.as_query_engine()
 
-synthesize_question="Output this text in a structered format with 5 parts. The first: On the goals the author had. Second: On the information the author used. Third: On the issues the author asked. Fourth: On the decisions the authos made. Fifth: On the actions the author took."
+#synthesize_question="Output this text in a structered format with 5 parts. The first: On the goals the author had. Second: On the information the author used. Third: On the issues the author asked. Fourth: On the decisions the authos made. Fifth: On the actions the author took."
+
+synthesize_question="How should i apply the method to achive the end goal ? the method consists of the the end goal, Information on the current situation, Information about succcess and questions i need to ask  . also provide reasons and citations"
 synthesize_response = query_engine.query(synthesize_question)
 
 print(synthesize_response)
